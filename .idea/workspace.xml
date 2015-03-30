@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac19cbb8-ace5-4211-aaaa-535d20e7ca29" name="Default" comment="" />
+    <list default="true" id="ac19cbb8-ace5-4211-aaaa-535d20e7ca29" name="Default" comment="">
+      <change type="MOVED" beforePath="C:\Users\francisco\workspace\tadp-los-bonitos\prueba.rb" afterPath="$PROJECT_DIR$/src/prueba.rb" />
+    </list>
     <ignored path="tadp-los-bonitos.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -26,7 +28,7 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="prueba.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/prueba.rb">
+        <entry file="file://$PROJECT_DIR$/src/prueba.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.17221418" vertical-offset="0" max-vertical-offset="691">
               <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
@@ -97,6 +99,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tadp-los-bonitos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tadp-los-bonitos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -104,6 +120,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\francisco\workspace\tadp-los-bonitos\src" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="RSpecRunConfigurationType" factoryName="RSpec">
@@ -222,7 +243,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/prueba.rb">
+    <entry file="file://$PROJECT_DIR$/src/prueba.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17221418" vertical-offset="0" max-vertical-offset="691">
           <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
