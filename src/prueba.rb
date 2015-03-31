@@ -1,7 +1,7 @@
 class Paloma
   attr_accessor :energia, :vida
 
-  def un_metodo()
+  def vitalidad()
     return self.energia + self.vida
   end
 
