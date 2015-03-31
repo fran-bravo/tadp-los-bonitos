@@ -10,4 +10,12 @@ describe 'Prueba de palomas' do
     josefa.energia=(30)
     expect(josefa.vitalidad()).to eq(80)
   end
+
+  it 'la paloma baila zumba' do
+    josefa = Paloma.new
+    josefa.vida=(50)
+    josefa.energia=(30)
+
+    expect(josefa.bailar_zumba()).to eq(15)
+  end
 end
