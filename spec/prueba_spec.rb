@@ -3,20 +3,19 @@ require_relative('../src/prueba')
 
 describe 'Prueba de palomas' do
 
+  before :each do
+    @josefa = Paloma.new
+    @josefa.vida=(50)
+    @josefa.energia=(30)
+  end
+
 
   it 'la paloma sabe calcular su vitalidad' do
-    josefa = Paloma.new
-    josefa.vida=(50)
-    josefa.energia=(30)
-    expect(josefa.vitalidad()).to eq(80)
+    expect(@josefa.vitalidad()).to eq(80)
   end
 
   it 'la paloma baila zumba' do
-    josefa = Paloma.new
-    josefa.vida=(50)
-    josefa.energia=(30)
-
-    expect(josefa.bailar_zumba()).to eq(15)
+    expect(@josefa.bailar_zumba()).to eq(15)
   end
 
   it 'un birdman come 20 gramos y tiene 10 de energia' do
