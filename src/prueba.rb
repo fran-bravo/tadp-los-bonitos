@@ -62,3 +62,15 @@ class Manbird < Animal
   include Ave
 
 end
+
+####################### Agrego un nivel mas ############################
+
+class Murcielago < Animal
+  include Ave
+
+end
+
+class Batman < Murcielago
+  include Hombre
+
+end

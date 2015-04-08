@@ -33,4 +33,20 @@ describe 'Prueba de palomas' do
 
     expect(pablo.energia()).to eq(50)
   end
+
+  it 'un Batman come como hombre 20 gramos con 10 de energia' do
+    bruno = Batman.new
+    bruno.energia=(10)
+    bruno.comer(20)
+
+    expect(bruno.energia).to eq(130)
+  end
+
+  it 'un Batman vuela 5 kms teniendo 60 de energia y queda con 10' do
+    bruno = Batman.new
+    bruno.energia=(60)
+    bruno.volar(5)
+
+    expect(bruno.energia).to eq(10)
+  end
 end
