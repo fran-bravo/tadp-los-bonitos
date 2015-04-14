@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac19cbb8-ace5-4211-aaaa-535d20e7ca29" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/PartialBlock.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/PartialBlock_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PartialBlock.rb" afterPath="$PROJECT_DIR$/src/PartialBlock.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/PartialBlock_spec.rb" afterPath="$PROJECT_DIR$/spec/PartialBlock_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/tadp-los-bonitos.iml" afterPath="$PROJECT_DIR$/.idea/tadp-los-bonitos.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tadp-los-bonitos.iws" />
@@ -18,8 +19,9 @@
   </component>
   <component name="ChangesViewManager" flattened_view="false" show_ignored="false" />
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/tadp-los-bonitos@Run_spec__PartialBlock_spec___tadp_los_bonitos.coverage" NAME="Run spec 'PartialBlock_spec': tadp-los-bonitos Coverage Results" MODIFIED="1429019149335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="tadp-los-bonitos" />
     <SUITE FILE_PATH="coverage/tadp-los-bonitos@Run_spec__age_spec___tadp_2015c1_ruby_age_of_empires.coverage" NAME="Run spec 'age_spec': tadp-2015c1-ruby-age-of-empires Coverage Results" MODIFIED="1427997459950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../tadp-2015c1-ruby-age-of-empires" MODULE_NAME="tadp-2015c1-ruby-age-of-empires" />
-    <SUITE FILE_PATH="coverage/tadp-los-bonitos@Run_spec__prueba_spec___tadp_los_bonitos.coverage" NAME="Run spec 'prueba_spec': tadp-los-bonitos Coverage Results" MODIFIED="1428118001314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="tadp-los-bonitos" />
+    <SUITE FILE_PATH="coverage/tadp-los-bonitos@Run_spec__prueba_spec___tadp_los_bonitos.coverage" NAME="Run spec 'prueba_spec': tadp-los-bonitos Coverage Results" MODIFIED="1429019095677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="tadp-los-bonitos" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -36,8 +38,8 @@
       <file leaf-file-name="prueba.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/prueba.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1173">
-              <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="758" max-vertical-offset="1377">
+              <caret line="67" column="13" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -46,8 +48,8 @@
       <file leaf-file-name="prueba_spec.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/prueba_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="697">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="350" max-vertical-offset="969">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/src/PartialBlock.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-              <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+              <caret line="2" column="64" selection-start-line="2" selection-start-column="64" selection-end-line="2" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -66,8 +68,8 @@
       <file leaf-file-name="PartialBlock_spec.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/PartialBlock_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16831683" vertical-offset="0" max-vertical-offset="606">
-              <caret line="6" column="127" selection-start-line="6" selection-start-column="127" selection-end-line="6" selection-end-column="127" />
+            <state vertical-scroll-proportion="0.5164557" vertical-offset="0" max-vertical-offset="395">
+              <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -138,7 +140,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -187,6 +188,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -205,7 +207,7 @@
       <recent name="C:\Users\francisco\workspace\tadp-los-bonitos\src" />
     </key>
   </component>
-  <component name="RunManager" selected="RSpec.Run spec 'prueba_spec': tadp-los-bonitos">
+  <component name="RunManager" selected="RSpec.Run spec 'PartialBlock_spec': tadp-los-bonitos">
     <configuration default="false" name="Run spec 'age_spec': tadp-2015c1-ruby-age-of-empires" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="tadp-2015c1-ruby-age-of-empires" />
@@ -255,6 +257,38 @@
       <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/spec/prueba_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
+      <RunnerSettings RunnerId="RubyRunner" />
+      <ConfigurationWrapper RunnerId="RubyRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Run spec 'PartialBlock_spec': tadp-los-bonitos" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
+      <predefined_log_file id="RUBY_RSPEC" enabled="true" />
+      <module name="tadp-los-bonitos" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs>
+        <env name="JRUBY_OPTS" value="-X+O" />
+      </envs>
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov" />
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/spec/PartialBlock_spec.rb" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="" />
@@ -334,14 +368,16 @@
       <envs />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="RSpec.Run spec 'age_spec': tadp-2015c1-ruby-age-of-empires" />
       <item index="1" class="java.lang.String" itemvalue="RSpec.Run spec 'prueba_spec': tadp-los-bonitos" />
+      <item index="2" class="java.lang.String" itemvalue="RSpec.Run spec 'PartialBlock_spec': tadp-los-bonitos" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="RSpec.Run spec 'prueba_spec': tadp-los-bonitos" />
-        <item index="1" class="java.lang.String" itemvalue="RSpec.Run spec 'age_spec': tadp-2015c1-ruby-age-of-empires" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="RSpec.Run spec 'PartialBlock_spec': tadp-los-bonitos" />
+        <item index="1" class="java.lang.String" itemvalue="RSpec.Run spec 'prueba_spec': tadp-los-bonitos" />
+        <item index="2" class="java.lang.String" itemvalue="RSpec.Run spec 'age_spec': tadp-2015c1-ruby-age-of-empires" />
       </list>
     </recent_temporary>
   </component>
@@ -373,17 +409,17 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22401172" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32713178" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32713178" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -407,6 +443,38 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/prueba.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="758" max-vertical-offset="1377">
+          <caret line="67" column="13" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/prueba_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="350" max-vertical-offset="969">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PartialBlock.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="221">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/PartialBlock_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/prueba.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1173">
@@ -513,16 +581,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/prueba.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1173">
-          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="986" max-vertical-offset="1377">
+          <caret line="67" column="13" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/prueba_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="697">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="350" max-vertical-offset="969">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -530,15 +598,15 @@
     <entry file="file://$PROJECT_DIR$/src/PartialBlock.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <caret line="2" column="64" selection-start-line="2" selection-start-column="64" selection-end-line="2" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/PartialBlock_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16831683" vertical-offset="0" max-vertical-offset="606">
-          <caret line="6" column="127" selection-start-line="6" selection-start-column="127" selection-end-line="6" selection-end-column="127" />
+        <state vertical-scroll-proportion="0.5164557" vertical-offset="0" max-vertical-offset="395">
+          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
           <folding />
         </state>
       </provider>

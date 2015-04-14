@@ -1,4 +1,5 @@
 require 'rspec'
+require_relative '../src/PartialBlock'
 
 describe 'Pruebas sobre partial blocks'  do
 
@@ -8,9 +9,9 @@ describe 'Pruebas sobre partial blocks'  do
       "Hello #{who}"
     end
 
-    helloBlock.matches("a") #true
-    helloBlock.matches(1) #false
-    helloBlock.matches("a", "b") #false
+    expect(helloBlock.matches("a")).to equal(true) #true
+    expect(helloBlock.matches(1)).to equal(false) #false
+    expect(helloBlock.matches("a", "b")).to equal(false) #false
 
   end
 end
