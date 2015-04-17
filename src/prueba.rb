@@ -70,7 +70,17 @@ class Murcielago < Animal
 
 end
 
+module Hiperactivo
+
+  def comer(unos_gramos)
+    self.ganar_energia(12 * unos_gramos)
+  end
+
+end
+
 class Batman < Murcielago
+  include Hiperactivo
   include Hombre
+
 
 end
