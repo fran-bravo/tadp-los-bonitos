@@ -11,10 +11,16 @@ describe 'Pruebas sobre partial blocks'  do
 
     helloBlock = PartialBlock.new([String], Proc.new do |who| "Hello #{who}" end)
 
-    #esto rompe porque manda un parámetro y según la consigna deberían ser dos, lo voy a preguntar en la lista <- creo que con esto ya esta resuelto el comment
-
     expect(helloBlock.matches("a")).to equal(true) #true
-    expect(helloBlock.matches(1)).to equal(false) #false
+
+  end
+
+
+  it 'un bloque definido para strings no matchea con no-strings ' do
+
+    helloBlock = PartialBlock.new([String], Proc.new do |who| "Hello #{who}" end)
+
+     expect(helloBlock.matches(1)).to equal(false) #false
     expect(helloBlock.matches("a", "b")).to equal(false) #false
 
   end
