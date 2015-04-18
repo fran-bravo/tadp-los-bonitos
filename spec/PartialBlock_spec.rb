@@ -14,17 +14,18 @@ describe 'Pruebas sobre partial blocks'  do
     expect{PartialBlock.new([]) do |argumento| end}.to raise_error(ArgumentException)
   end
 
+
   it 'un bloque definido para string matchea con strings ' do
 
-    expect(self.helloBlock.matches("a")).to equal(true) #true
+    expect(helloBlock.matches("a")).to equal(true) #true
 
   end
 
 
   it 'un bloque definido para strings no matchea con no-strings ' do
 
-    expect(self.helloBlock.matches(1)).to equal(false) #false
-    expect(self.helloBlock.matches("a", "b")).to equal(false) #false
+    expect(helloBlock.matches(1)).to equal(false) #false
+    expect(helloBlock.matches("a", "b")).to equal(false) #false
 
   end
 
@@ -36,6 +37,10 @@ describe 'Pruebas sobre partial blocks'  do
     expect(un_block.matches(1, "a")).to equal(false) #false
     expect(un_block.matches(2, 4)).to equal(true) #true
 
+  end
+
+  it 'un helloBlock al que le paso world!, dice Hello world!' do
+    expect(helloBlock.call('world!')).to equal('Hello world!')
   end
 
 end
