@@ -43,4 +43,8 @@ describe 'Pruebas sobre partial blocks'  do
     expect(helloBlock.call('world!')).to eq('Hello world!')
   end
 
+  it 'tratar de callear a un bloque con argumentos que no acepta provoca una explosion' do
+    expect{helloBlock.call(1)}.to raise_error(ArgumentError)
+  end
+
 end

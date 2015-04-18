@@ -28,6 +28,9 @@ class PartialBlock
   end
 
   def call(*parameters)
+    if !matches(*parameters)
+      raise(ArgumentError, 'Se intentó llamar al bloque con argumentos no validos')
+    end
     block.call(*parameters)
   end
 
