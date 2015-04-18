@@ -3,25 +3,28 @@ require_relative '../src/PartialBlock'
 
 describe 'Pruebas sobre partial blocks'  do
 
+  attr_accessor(:helloBlock)
+
+
+  before(:all) do
+    self.helloBlock = PartialBlock.new([String]) do |who| "Hello #{who}" end
+  end
+
   it 'un bloque mal definido explota' do
     expect{PartialBlock.new([]) do |argumento| end}.to raise_error(ArgumentException)
   end
 
   it 'un bloque definido para string matchea con strings ' do
 
-    helloBlock = PartialBlock.new([String])  do |who| "Hello #{who}" end
-
-    expect(helloBlock.matches("a")).to equal(true) #true
+    expect(self.helloBlock.matches("a")).to equal(true) #true
 
   end
 
 
   it 'un bloque definido para strings no matchea con no-strings ' do
 
-    helloBlock = PartialBlock.new([String]) do |who| "Hello #{who}" end
-
-     expect(helloBlock.matches(1)).to equal(false) #false
-    expect(helloBlock.matches("a", "b")).to equal(false) #false
+    expect(self.helloBlock.matches(1)).to equal(false) #false
+    expect(self.helloBlock.matches("a", "b")).to equal(false) #false
 
   end
 
