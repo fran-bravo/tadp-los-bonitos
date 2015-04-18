@@ -11,7 +11,7 @@ describe 'Pruebas sobre partial blocks'  do
   end
 
   it 'un bloque mal definido explota' do
-    expect{PartialBlock.new([]) do |argumento| end}.to raise_error(ArgumentException)
+    expect{PartialBlock.new([]) do |argumento| end}.to raise_error(ArgumentError)
   end
 
 
@@ -40,7 +40,7 @@ describe 'Pruebas sobre partial blocks'  do
   end
 
   it 'un helloBlock al que le paso world!, dice Hello world!' do
-    expect(helloBlock.call('world!')).to equal('Hello world!')
+    expect(helloBlock.call('world!')).to eq('Hello world!')
   end
 
 end

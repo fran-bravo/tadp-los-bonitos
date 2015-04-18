@@ -3,7 +3,7 @@ class PartialBlock
 
   def initialize(tipos, &bloque) #tipos es un array de clases, &bloque es un bloque común y corriente (el do..end del ejemplo)
     if tipos.length != bloque.arity
-      raise(ArgumentException, "La cantidad de parametros no concuerdan con los requeridos") #Tambien se le puede agregar una condicion, agrego link en el drive
+      raise(ArgumentError, "La cantidad de parametros no concuerdan con los requeridos") #Tambien se le puede agregar una condicion, agrego link en el drive
       #throw new blah blah blah
       #¿cómo se tira *bien* una excepción en Ruby? | Confio en que este resuelto esto xD
     elsif
@@ -27,10 +27,14 @@ class PartialBlock
     return true
   end
 
+  def call(*parameters)
+    block.call(*parameters)
+  end
+
 end
 
 #No encontre mejor lugar para definir esto por ahora
 
-class ArgumentException < StandardError
+class ArgumentError < StandardError
 
 end
