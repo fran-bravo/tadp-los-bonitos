@@ -1,7 +1,7 @@
 class PartialBlock
   attr_accessor :types, :block
 
-  def initialize(tipos, bloque) #tipos es un array de clases, &bloque es un bloque común y corriente (el do..end del ejemplo)
+  def initialize(tipos, &bloque) #tipos es un array de clases, &bloque es un bloque común y corriente (el do..end del ejemplo)
     if tipos.length != bloque.arity
       raise(ArgumentException, "La cantidad de parametros no concuerdan con los requeridos") #Tambien se le puede agregar una condicion, agrego link en el drive
       #throw new blah blah blah
