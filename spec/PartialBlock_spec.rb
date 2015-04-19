@@ -77,7 +77,10 @@ describe 'Pruebas sobre partial blocks'  do
     bloque_objetoso = PartialBlock.new([Object, Object]) do |var1, var2| [var1*7,var2*7] end
 
     expect(bloque_objetoso.call(a,b)). to eq([35,14])
+  end
 
+  it 'tratar de callear a un bloque con argumentos que no acepta provoca una explosion' do
+    expect{helloBlock.call(1)}.to raise_error(ArgumentError)
   end
 
 end

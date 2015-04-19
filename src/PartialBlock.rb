@@ -30,12 +30,11 @@ class PartialBlock
 
 
   def call(*parameters)
-
-    if self.matches(*parameters) #Aca agregue esta condicion. Si no se cumple, que tire una excepcion
+    if !matches(*parameters)
+      raise(ArgumentError, 'Se intentó llamar al bloque con argumentos no validos')
+    end
     block.call(*parameters)
     end
-
-  end
 
 end
 
