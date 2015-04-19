@@ -62,7 +62,7 @@ describe 'Pruebas sobre partial blocks'  do
     pi = PartialBlock.new([]) do 3.14
     end
 
-    expect(pi.call()). to equal(3.14)
+    expect(pi.call()). to eq(3.14)
   end
 
   it 'un bloque funciona correctamente con subtipos' do

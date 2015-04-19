@@ -13,12 +13,13 @@ class PartialBlock
 
   end
 
-  def matches(*parametros)
-    if self.types.length != parametros.length
-      return false
-    end
+  def validar_cantidad_parametros(*parametros)
+    self.types.length == parametros.length
+  end
 
+  def validar_tipos_parametros(*parametros)
     i = 0
+
     for tipo in self.types
       unless parametros[i].class.ancestors.include?(tipo) #Las clases de los parametros heredan en algun momento de los tipos que espera el bloque
         return false
@@ -26,6 +27,11 @@ class PartialBlock
       i += 1
     end
     return true
+
+  end
+
+  def matches(*parametros)
+    validar_cantidad_parametros(*parametros) && validar_tipos_parametros(*parametros)
   end
 
 
