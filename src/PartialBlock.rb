@@ -17,9 +17,10 @@ class PartialBlock
     if self.types.length != parametros.length
       return false
     end
+
     i = 0
     for tipo in self.types
-      if parametros[i].class != tipo
+      unless parametros[i].class.ancestors.include?(tipo) #Las clases de los parametros heredan en algun momento de los tipos que espera el bloque
         return false
       end
       i += 1
@@ -27,8 +28,13 @@ class PartialBlock
     return true
   end
 
+
   def call(*parameters)
+
+    if self.matches(*parameters) #Aca agregue esta condicion. Si no se cumple, que tire una excepcion
     block.call(*parameters)
+    end
+
   end
 
 end
