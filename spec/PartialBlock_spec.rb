@@ -1,5 +1,6 @@
 require 'rspec'
 require_relative '../src/PartialBlock'
+require_relative '../src/prueba'
 
 describe 'Pruebas sobre partial blocks'  do
 
@@ -81,6 +82,17 @@ describe 'Pruebas sobre partial blocks'  do
 
   it 'tratar de callear a un bloque con argumentos que no acepta provoca una explosion' do
     expect{helloBlock.call(1)}.to raise_error(ArgumentError)
+  end
+
+  it 'soporte de modules en matches y call' do
+
+    module_block = PartialBlock.new([Ave]) { |ave|  ave.volar(10) }
+    paloma = Paloma.new
+    paloma.energia=(80)
+
+    expect(module_block.matches(paloma)).to eq(true)
+    expect(module_block.call(paloma)).to eq(70)
+
   end
 
 end

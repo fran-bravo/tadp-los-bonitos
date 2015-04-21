@@ -17,7 +17,7 @@ end
 module Ave
 
   def volar(unos_kms)
-    self.perder_energia(10 * unos_kms)
+    self.perder_energia(1 * unos_kms)
   end
 
   def comer(unos_gramos)
