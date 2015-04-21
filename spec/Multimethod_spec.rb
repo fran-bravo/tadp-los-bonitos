@@ -39,7 +39,7 @@ describe 'Tests sobre multimethods' do
   end
 
   it 'funciona el responds_to? para partial_def' do
-    
+
     expect(A.new.respond_to?(:concat)).to eq(true)
 
   end
