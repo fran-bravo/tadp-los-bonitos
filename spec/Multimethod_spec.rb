@@ -6,9 +6,11 @@ describe 'Tests sobre multimethods' do
 
   before (:all) do
     class A
+
       partial_def :concat, [String, String] do |s1, s2|
         s1 + s2
       end
+
 
       partial_def :concat, [String, Integer] do |s1,n|
         s1 * n
@@ -38,9 +40,15 @@ describe 'Tests sobre multimethods' do
     expect(A.multimetodos.first.bloques_parciales.length).to eq(3)
   end
 
+  it 'Se puede preguntar por los multimétodos definidos en la clase' do
+    expect(A.multimethods).to eq([:concat])
+  end
+
   it 'funciona el responds_to? para partial_def' do
 
     expect(A.new.respond_to?(:concat)).to eq(true)
 
   end
+
+
 end
