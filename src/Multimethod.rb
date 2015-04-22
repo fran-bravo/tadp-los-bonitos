@@ -25,12 +25,6 @@ end
 class Module
   attr_accessor :multimetodos #Lista con los multimethods definidos
 
-=begin
-  send(:define_method, :juli) do |*parametros|
-    multimethods.include?(parametros.first) || super(parametros.first)
-  end
-=end
-
   def multimetodos
     @multimetodos= @multimetodos || []
   end
@@ -69,12 +63,12 @@ module Respondedor
 
   def respond_to?(*parametros) #El primero es el símbolo y el segundo la lista de clases. Puede no estar.
 
-    multimethods.include?(parametros.first) || super
+    self.class.multimethods.include?(parametros.first) || super
   end
 
 end
 
-class Class
+class Object
   include Respondedor
 
 end
