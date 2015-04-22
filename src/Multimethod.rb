@@ -58,10 +58,41 @@ class Module
 
 end
 
+module Boolean
+end
+
+class TrueClass
+  include Boolean
+end
+
+class FalseClass
+  include Boolean
+end
 
 module Respondedor
 
-  def respond_to?(*parametros) #El primero es el símbolo y el segundo la lista de clases. Puede no estar.
+=begin
+  partial_def :respond_to?, [Symbol] do |simbolo|
+    self.class.multimethods.include?(simbolo) || super(simbolo)
+  end
+
+  partial_def :respond_to?, [Symbol, Boolean] do |simbolo, bool|
+    self.class.multimethods.include?(simbolo) || super(simbolo, bool)
+  end
+
+  partial_def :respond_to?, [Symbol, Boolean, Array] do |simbolo, bool, tipos|
+    self.class.multimethods.include?(simbolo) && self.coinciden_los_tipos(simbolo, tipos)
+  end
+
+  def coinciden_los_tipos(simbolo, tipos)
+    indice = @@multimetodos.find_index do |multimethod| multimethod.simbolo == simbolo end
+    @@multimetodos[indice].bloques_parciales.any do |bloque|
+      bloque.types == tipos
+    end
+  end
+=end
+
+  def respond_to?(*parametros) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
 
     self.class.multimethods.include?(parametros.first) || super
   end
@@ -70,7 +101,5 @@ end
 
 class Object
   include Respondedor
-
 end
-
 
