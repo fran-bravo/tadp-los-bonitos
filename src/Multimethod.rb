@@ -8,8 +8,19 @@ class Multimethod
     self.bloques_parciales = []
   end
 
+  def tiene_la_sobrecarga(tipos)
+    if this.pos_sobrecarga(tipos).nil?
+      return false
+    end
+    return true
+  end
+
+  def pos_sobrecarga(tipos)
+    return self.bloques_parciales.find_index do |bloque_parcial| bloque_parcial.types.eql?(tipos) end
+  end
+
   def agregar_bloque(partial_block)
-    posicion = self.bloques_parciales.find_index do |bloque_parcial| bloque_parcial.types.eql?(partial_block.types) end
+    posicion = self.pos_sobrecarga(partial_block.types)
 
     unless posicion == nil
       bloques_parciales.delete_at(posicion)
@@ -85,6 +96,16 @@ class Module
     self.multimetodos.detect do |multimethod| multimethod.simbolo == simbolo end
   end
 
+  def tiene_el_multimethod(simbolo, parameter_list=nil)
+    if parameter_list.nil?
+      return self.multimethods.include?(simbolo)
+    else
+      return self_multimethods.include?(simbolo) && self.multimethod_requerido(simbolo).tiene_la_sobrecarga(parameter_list)
+    end
+
+  end
+
+
 end
 
 module Boolean
@@ -121,9 +142,10 @@ module Respondedor
   end
 =end
 
-  def respond_to?(*parametros) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
+  alias_method :ruby_respond_to?, :respond_to?
 
-    self.class.multimethods.include?(parametros.first) || super
+  def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
+      return self.class.tiene_el_multimethod(simbolo, parameter_list) || ruby_respond_to?(simbolo)
   end
 
 end
