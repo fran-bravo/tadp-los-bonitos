@@ -50,5 +50,14 @@ describe 'Tests sobre multimethods' do
 
   end
 
+  it 'La distancia del parámetro se calcula correctamente' do
+    expect(Multimethod.new(:metodo).distancia_parametro(Numeric, 3)).to eq(2)
+  end
+
+  it 'Se calcula correctamente la distancia de los parámetros' do
+    multimetodo = Multimethod.new(:metodo)
+    expect(multimetodo.distancia_parametros([Numeric, Numeric], [3, 3.0])).to eq(4)
+  end
+
 
 end

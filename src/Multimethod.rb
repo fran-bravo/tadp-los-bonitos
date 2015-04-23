@@ -19,6 +19,31 @@ class Multimethod
 
   end
 
+  def enviar_multimetodo(parametros)
+    bloques_candidatos = bloques_parciales.select do |partial_block|
+      partial_block.matches(parametros)
+    end
+
+    bloque = bloques_candidatos.max_by do |part_block|
+      self.distancia_parametros(part_block.types, parametros)
+    end
+
+    bloque.call(parametros)
+
+  end
+
+  def distancia_parametros(tipos, parametros)
+    distancias = tipos.map do |tipo|
+      indice = tipos.find_index(tipo)
+      self.distancia_parametro(tipo, parametros[indice]) * (indice + 1)
+    end
+    distancias.sum
+  end
+
+  def distancia_parametro(tipo, parametro)
+    parametro.class.ancestors.index(tipo)
+  end
+
 end
 
 
@@ -52,8 +77,12 @@ class Module
   end
 
   def agregar_multimethod_existente(simbolo, bloque_parcial)
-    indice = multimetodos.find_index do |multimethod| multimethod.simbolo == simbolo end
-    multimetodos[indice].agregar_bloque(bloque_parcial)
+    multimetodo = self.multimethod_requerido(simbolo)
+    multimetodo.agregar_bloque(bloque_parcial)
+  end
+
+  def multimethod_requerido(simbolo)
+    self.multimetodos.detect do |multimethod| multimethod.simbolo == simbolo end
   end
 
 end
@@ -99,7 +128,25 @@ module Respondedor
 
 end
 
+module Ejecutor
+=begin
+  def send(*parametros)
+    metodo = parametros.first
+    parametros.delete_at(0)
+
+    self.class.multimethod_requerido(metodo).enviar_multimetodo(parametros)
+  end
+=end
+end
+
 class Object
   include Respondedor
+  include Ejecutor
+end
+
+class Array
+  def sum
+    self.inject{|sum,x| sum + x }
+  end
 end
 
