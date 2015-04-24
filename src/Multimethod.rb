@@ -48,15 +48,10 @@ class Multimethod
     end
 
 
-    bloque = bloques_candidatos.max_by do |part_block|
+    bloque = bloques_candidatos.min_by do |part_block|
       distancias = []
-
       aniadir_distancia(part_block, distancias, parametros)
-
-      distancia = distancias.sum
-      print(distancia) #Si saco este print, no me anda el test............
     end
-
 
     bloque.call(*parametros)
 
