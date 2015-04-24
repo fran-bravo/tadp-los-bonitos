@@ -9,17 +9,11 @@ class Multimethod
   end
 
   def tiene_la_sobrecarga(tipos)
-    if self.pos_sobrecarga_exacta(tipos).nil?
-      return false
-    end
-    return true
+    !(self.pos_sobrecarga_exacta(tipos).nil?)
   end
 
   def acepta_la_sobrecarga(tipos)
-    if self.pos_sobrecarga_posible(tipos).nil?
-      return false
-    end
-    return true
+    !(self.pos_sobrecarga_posible(tipos).nil?)
   end
 
 
@@ -134,39 +128,7 @@ class Module
 
 end
 
-module Boolean
-end
-
-class TrueClass
-  include Boolean
-end
-
-class FalseClass
-  include Boolean
-end
-
 module Respondedor
-
-=begin
-  partial_def :respond_to?, [Symbol] do |simbolo|
-    self.class.multimethods.include?(simbolo) || super(simbolo)
-  end
-
-  partial_def :respond_to?, [Symbol, Boolean] do |simbolo, bool|
-    self.class.multimethods.include?(simbolo) || super(simbolo, bool)
-  end
-
-  partial_def :respond_to?, [Symbol, Boolean, Array] do |simbolo, bool, tipos|
-    self.class.multimethods.include?(simbolo) && self.coinciden_los_tipos(simbolo, tipos)
-  end
-
-  def coinciden_los_tipos(simbolo, tipos)
-    indice = @@multimetodos.find_index do |multimethod| multimethod.simbolo == simbolo end
-    @@multimetodos[indice].bloques_parciales.any do |bloque|
-      bloque.types == tipos
-    end
-  end
-=end
 
   alias_method :ruby_respond_to?, :respond_to?
 
@@ -177,15 +139,6 @@ module Respondedor
 end
 
 module Ejecutor
-=begin
-  def send(*parametros)
-    metodo = parametros.first
-    parametros.delete_at(0)
-
-    self.class.multimethod_requerido(metodo).enviar_multimetodo(parametros)
-  end
-=end
-
 
   def define_metodo(simbolo, bloque)
     if self.multimethods.include?(simbolo)

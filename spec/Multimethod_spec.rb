@@ -96,5 +96,12 @@ describe 'Tests sobre multimethods' do
 
   end
 
+  it 'Se agrega un multimetodo solo a una instancia' do
+    nueva_a = A.new
+
+    #nueva_a.partial_def :multiplicar, [Integer, Integer] do |num1, num2| num1*num2 end #De momento no está implementado
+    #expect(nueva_a.respond_to?(:multiplicar, false, [Integer, Integer])).to eq(true)
+  end
+
 
 end
