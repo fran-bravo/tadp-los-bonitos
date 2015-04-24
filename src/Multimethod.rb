@@ -9,7 +9,7 @@ class Multimethod
   end
 
   def tiene_la_sobrecarga(tipos)
-    if this.pos_sobrecarga(tipos).nil?
+    if self.pos_sobrecarga(tipos).nil?
       return false
     end
     return true
@@ -100,7 +100,7 @@ class Module
     if parameter_list.nil?
       return self.multimethods.include?(simbolo)
     else
-      return self_multimethods.include?(simbolo) && self.multimethod_requerido(simbolo).tiene_la_sobrecarga(parameter_list)
+      return self.multimethods.include?(simbolo) && self.multimethod_requerido(simbolo).tiene_la_sobrecarga(parameter_list)
     end
 
   end
@@ -145,7 +145,7 @@ module Respondedor
   alias_method :ruby_respond_to?, :respond_to?
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
-      return self.class.tiene_el_multimethod(simbolo, parameter_list) || ruby_respond_to?(simbolo)
+      return self.class.tiene_el_multimethod(simbolo, parameter_list) || ruby_respond_to?(simbolo, boolean)
   end
 
 end
