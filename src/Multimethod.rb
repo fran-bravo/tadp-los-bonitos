@@ -42,16 +42,18 @@ class Multimethod
 
   end
 
-  def enviar_multimetodo(parametros)
+  def enviar_multimetodo(*parametros)
     bloques_candidatos = bloques_parciales.select do |partial_block|
-      partial_block.matches(parametros)
+      partial_block.matches(*parametros)
     end
+
 
     bloque = bloques_candidatos.max_by do |part_block|
-      self.distancia_parametros(part_block.types, parametros)
+      self.distancia_parametros(part_block.types, *parametros)
     end
+    
 
-    bloque.call(parametros)
+    bloque.call(*parametros)
 
   end
 
@@ -90,6 +92,9 @@ class Module
     else
       agregar_nuevo_multimetodo(simbolo, bloque_parcial)
     end
+
+    selector_multi = proc {|*tipos| self.class.multimethod_requerido(simbolo).enviar_multimetodo(*tipos)}
+    define_metodo(simbolo, selector_multi)
 
   end
 
@@ -171,6 +176,13 @@ module Ejecutor
     self.class.multimethod_requerido(metodo).enviar_multimetodo(parametros)
   end
 =end
+
+
+  def define_metodo(simbolo, bloque)
+    if self.multimethods.include?(simbolo)
+      define_method(simbolo, bloque)
+    end
+  end
 end
 
 class Object

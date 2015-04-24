@@ -89,5 +89,9 @@ describe 'Tests sobre multimethods' do
     expect(multimetodo.distancia_parametros([Numeric, Numeric], [3, 3.0])).to eq(4)
   end
 
+  it 'Se invoca un multimetodo' do
+    expect(A.new.concat('hello', 3)). to eq("hellohellohello")
+  end
+
 
 end
