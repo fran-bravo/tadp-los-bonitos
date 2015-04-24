@@ -125,6 +125,21 @@ class Module
 
   end
 
+  def multimethod(simbolo)
+    combinaciones = []
+    self.multimethod_requerido(simbolo).bloques_parciales.each do
+      |bloque_parcial|
+      metodo = []
+      metodo << simbolo
+      metodo << bloque_parcial.types
+      combinaciones << metodo
+
+    end
+
+
+    return combinaciones
+  end
+
 
 end
 

@@ -103,5 +103,8 @@ describe 'Tests sobre multimethods' do
     #expect(nueva_a.respond_to?(:multiplicar, false, [Integer, Integer])).to eq(true)
   end
 
+  it 'Muestra la representacion de un multimethod' do
+    expect(A.multimethod(:concat)). to eq([[:concat,[String, String]], [:concat, [Array]], [:concat, [Object, Object]], [:concat, [String, Integer]]])
+  end
 
 end
