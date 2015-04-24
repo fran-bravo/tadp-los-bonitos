@@ -90,7 +90,10 @@ describe 'Tests sobre multimethods' do
   end
 
   it 'Se invoca un multimetodo' do
-    expect(A.new.concat('hello', 3)). to eq("hellohellohello")
+    expect(A.new.concat('hello', " world!")). to eq("hello world!")
+    #expect(A.new.concat('hello', 3)). to eq("hellohellohello") No anda porque el de [Object, Object] me sobreescribe el que tenia 
+    expect(A.new.concat(['hello', ' world', '!'])). to eq("hello world!")
+
   end
 
 

@@ -49,13 +49,26 @@ class Multimethod
 
 
     bloque = bloques_candidatos.max_by do |part_block|
-      self.distancia_parametros(part_block.types, *parametros)
+      distancias = []
+
+      aniadir_distancia(part_block, distancias, parametros)
+
+      distancia = distancias.sum
+      print(distancia) #Si saco este print, no me anda el test............
     end
-    
+
 
     bloque.call(*parametros)
 
   end
+
+  def aniadir_distancia(part_block, distancias, parametros)
+    for tipo in part_block.types #Agregue un for feo porque a distancia_parametros le estaba pasando dos param de tamaño variable y no me andaba
+      indice = part_block.types.find_index(tipo)
+      distancias << self.distancia_parametro(tipo, parametros[indice]) * (indice + 1)
+    end
+  end
+
 
   def distancia_parametros(tipos, parametros)
     distancias = tipos.map do |tipo|
@@ -64,6 +77,7 @@ class Multimethod
     end
     distancias.sum
   end
+
 
   def distancia_parametro(tipo, parametro)
     parametro.class.ancestors.index(tipo)
