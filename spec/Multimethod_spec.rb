@@ -104,7 +104,7 @@ describe 'Tests sobre multimethods' do
   end
 
   it 'Muestra la representacion de un multimethod' do
-    expect(A.multimethod(:concat)). to eq([[:concat,[String, String]], [:concat, [Array]], [:concat, [Object, Object]], [:concat, [String, Integer]]])
+    expect(A.multimethod(:concat).class). to eq(Multimethod)
   end
 
 end

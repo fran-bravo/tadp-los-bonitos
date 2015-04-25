@@ -1,6 +1,7 @@
 require 'rspec'
+require 'fixture'
 require_relative '../src/PartialBlock'
-require_relative '../src/prueba'
+
 
 describe 'Pruebas sobre partial blocks'  do
 

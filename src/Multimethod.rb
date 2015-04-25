@@ -9,24 +9,24 @@ class Multimethod
   end
 
   def tiene_la_sobrecarga(tipos)
-    !(self.pos_sobrecarga_exacta(tipos).nil?)
+    !(self.pos_firma_exacta(tipos).nil?)
   end
 
   def acepta_la_sobrecarga(tipos)
-    !(self.pos_sobrecarga_posible(tipos).nil?)
+    !(self.pos_firma_posible(tipos).nil?)
   end
 
 
-  def pos_sobrecarga_exacta(tipos)
+  def pos_firma_exacta(tipos)
     return self.bloques_parciales.find_index do |bloque_parcial| bloque_parcial.types.eql?(tipos) end
   end
 
-  def pos_sobrecarga_posible(tipos)
+  def pos_firma_posible(tipos)
     return self.bloques_parciales.find_index do |bloque_parcial| bloque_parcial.matches(*tipos) end
   end
 
   def agregar_bloque(partial_block)
-    posicion = self.pos_sobrecarga_exacta(partial_block.types)
+    posicion = self.pos_firma_exacta(partial_block.types)
 
     unless posicion == nil
       bloques_parciales.delete_at(posicion)
@@ -93,26 +93,27 @@ class Module
     if self.multimethods.include?(simbolo)
       self.agregar_multimethod_existente(simbolo, bloque_parcial)
     else
-      agregar_nuevo_multimetodo(simbolo, bloque_parcial)
+      agregar_nuevo_multimethod(simbolo, bloque_parcial)
     end
 
-    selector_multi = proc {|*tipos| self.class.multimethod_requerido(simbolo).enviar_multimetodo(*tipos)}
-    define_metodo(simbolo, selector_multi)
+    if self.multimethods.include?(simbolo)
+      define_method(simbolo) {|*tipos| self.class.multimethod(simbolo).enviar_multimetodo(*tipos)}
+    end
 
   end
 
-  def agregar_nuevo_multimetodo(simbolo, bloque_parcial)
+  def agregar_nuevo_multimethod(simbolo, bloque_parcial)
     nuevo_multimetodo = Multimethod.new(simbolo)
     nuevo_multimetodo.agregar_bloque(bloque_parcial)
     multimetodos << nuevo_multimetodo
   end
 
   def agregar_multimethod_existente(simbolo, bloque_parcial)
-    multimetodo = self.multimethod_requerido(simbolo)
+    multimetodo = self.multimethod(simbolo)
     multimetodo.agregar_bloque(bloque_parcial)
   end
 
-  def multimethod_requerido(simbolo)
+  def multimethod(simbolo)
     self.multimetodos.detect do |multimethod| multimethod.simbolo == simbolo end
   end
 
@@ -120,26 +121,10 @@ class Module
     if parameter_list.nil?
       return self.multimethods.include?(simbolo)
     else
-      return self.multimethods.include?(simbolo) && self.multimethod_requerido(simbolo).acepta_la_sobrecarga(parameter_list)
+      return self.multimethods.include?(simbolo) && self.multimethod(simbolo).acepta_la_sobrecarga(parameter_list)
     end
 
   end
-
-  def multimethod(simbolo)
-    combinaciones = []
-    self.multimethod_requerido(simbolo).bloques_parciales.each do
-      |bloque_parcial|
-      metodo = []
-      metodo << simbolo
-      metodo << bloque_parcial.types
-      combinaciones << metodo
-
-    end
-
-
-    return combinaciones
-  end
-
 
 end
 
@@ -153,6 +138,7 @@ module Respondedor
 
 end
 
+=begin
 module Ejecutor
 
   def define_metodo(simbolo, bloque)
@@ -161,10 +147,11 @@ module Ejecutor
     end
   end
 end
+=end
 
 class Object
   include Respondedor
-  include Ejecutor
+  #include Ejecutor
 end
 
 class Array
