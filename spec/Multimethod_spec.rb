@@ -4,7 +4,7 @@ require_relative '../src/Multimethod'
 
 describe 'Tests sobre multimethods' do
 
-  before (:all) do
+  before (:each) do
     class A
 
       partial_def :concat, [String, String] do |s1, s2|
@@ -91,7 +91,7 @@ describe 'Tests sobre multimethods' do
 
   it 'Se invoca un multimetodo' do
     expect(A.new.concat('hello', " world!")). to eq("hello world!")
-    expect(A.new.concat('hello', 3)). to eq("Hola Maiu!") #Devuelve esto porque el método se está redefiniendo en un test anterior :/
+    expect(A.new.concat('hello', 3)). to eq("hellohellohello") #Devuelve esto porque el método se está redefiniendo en un test anterior :/
     expect(A.new.concat(['hello', ' world', '!'])). to eq("hello world!")
 
   end
