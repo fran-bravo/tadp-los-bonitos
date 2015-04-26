@@ -117,12 +117,25 @@ class Module
     self.multimetodos.detect do |multimethod| multimethod.simbolo == simbolo end
   end
 
-  def tiene_el_multimethod(simbolo, parameter_list=nil)
+  def tiene_el_multimethod(simbolo, boolean=false, parameter_list=nil)
+    lo_tiene = false
+
     if parameter_list.nil?
-      return self.multimethods.include?(simbolo)
+      lo_tiene = lo_tiene || self.multimethods.include?(simbolo)
     else
-      return self.multimethods.include?(simbolo) && self.multimethod(simbolo).acepta_la_sobrecarga(parameter_list)
+      lo_tiene = lo_tiene || self.multimethods.include?(simbolo) && self.multimethod(simbolo).acepta_la_sobrecarga(parameter_list)
     end
+
+    if boolean==true
+      for ancestro in self.ancestors
+        lo_tiene = lo_tiene || ancestro.tiene_el_multimethod(simbolo, false, parameter_list)
+        #aca va false porque esto no tiene que ser recursivo! si lo fuera entraria en un loop infinito
+        #basta con que alguno de sus ancestros (que ya vienen convenientemente aplanados) tenga el multimethod
+        #todos los ancestros son siempre Modules y por lo tanto lo entienden
+      end
+    end
+
+    return lo_tiene
 
   end
 
@@ -133,7 +146,7 @@ module Respondedor
   alias_method :ruby_respond_to?, :respond_to?
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
-      return self.class.tiene_el_multimethod(simbolo, parameter_list) || (ruby_respond_to?(simbolo, boolean) && parameter_list==nil)
+      return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
   end
 
 end
