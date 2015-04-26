@@ -1,5 +1,9 @@
 require_relative '../src/PartialBlock'
 
+#********************************************************************************************************
+#************************************Definicion de un multimethod****************************************
+#********************************************************************************************************
+
 class Multimethod
   attr_accessor :simbolo, :bloques_parciales
 
@@ -36,42 +40,6 @@ class Multimethod
 
   end
 
-  def enviar_multimetodo(*parametros)
-    bloques_candidatos = bloques_parciales.select do |partial_block|
-      partial_block.matches(*parametros)
-    end
-
-
-    bloque = bloques_candidatos.min_by do |part_block|
-      distancias = []
-      aniadir_distancia(part_block, distancias, parametros)
-    end
-
-    bloque.call(*parametros)
-
-  end
-
-  def aniadir_distancia(part_block, distancias, parametros)
-    for tipo in part_block.types #Agregue un for feo porque a distancia_parametros le estaba pasando dos param de tamaño variable y no me andaba
-      indice = part_block.types.find_index(tipo)
-      distancias << self.distancia_parametro(tipo, parametros[indice]) * (indice + 1)
-    end
-  end
-
-
-  def distancia_parametros(tipos, parametros)
-    distancias = tipos.map do |tipo|
-      indice = tipos.find_index(tipo)
-      self.distancia_parametro(tipo, parametros[indice]) * (indice + 1)
-    end
-    distancias.sum
-  end
-
-
-  def distancia_parametro(tipo, parametro)
-    parametro.class.ancestors.index(tipo)
-  end
-
 end
 
 
@@ -97,7 +65,7 @@ class Module
     end
 
     if self.multimethods.include?(simbolo)
-      define_method(simbolo) {|*tipos| self.class.multimethod(simbolo).enviar_multimetodo(*tipos)}
+      define_method(simbolo) {|*tipos| self.class.multimethod(simbolo).elegir_multimethod_apropiado(*tipos)}
     end
 
   end
@@ -141,31 +109,56 @@ class Module
 
 end
 
-module Respondedor
 
+module Respondedor
   alias_method :ruby_respond_to?, :respond_to?
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
-      return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+    return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
   end
 
 end
 
-=begin
-module Ejecutor
 
-  def define_metodo(simbolo, bloque)
-    if self.multimethods.include?(simbolo)
-      define_method(simbolo, bloque)
-    end
-  end
-end
-=end
 
 class Object
   include Respondedor
-  #include Ejecutor
 end
+
+#********************************************************************************************************
+#************************************Ejecucion de un multimethod*****************************************
+#********************************************************************************************************
+
+class Multimethod
+
+  def elegir_multimethod_apropiado(*parametros)
+    bloques_candidatos = bloques_parciales.select do |partial_block|
+      partial_block.matches(*parametros)
+    end
+
+    bloque = bloques_candidatos.min_by do |part_block|
+      distancia_parametros(part_block.types, parametros)
+    end
+
+    bloque.call(*parametros)
+
+  end
+
+  def distancia_parametros(tipos, parametros)
+    distancias = tipos.map do |tipo|
+      indice = tipos.find_index(tipo)
+      self.distancia_parametro(tipo, parametros[indice]) * (indice + 1)
+    end
+    distancias.sum
+  end
+
+
+  def distancia_parametro(tipo, parametro)
+    parametro.class.ancestors.index(tipo)
+  end
+
+end
+
 
 class Array
   def sum
