@@ -15,16 +15,15 @@ class PartialBlock
     self.types.length == parametros.length
   end
 
-  def validar_tipos_parametros(*parametros)
-    i = 0
+  def comprobar_ancestros(tuplas_tipos) #Recibe arrays de arrays [[tipo_param, tipo_del_bloqu], ... ]
+    tuplas_tipos.all? { |tupla| tupla[0].ancestors.include?(tupla[1]) } #Valida que el bloque sea un ancestro del param
+  end
 
-    for tipo in self.types
-      unless parametros[i].class.ancestors.include?(tipo)
-        return false
-      end
-      i += 1
-    end
-    return true
+  def validar_tipos_parametros(*parametros)
+    tipos = parametros.map { |param| param.class } #Transforma el array de parametros a un array de sus Clases
+    tipos = tipos.zip(self.types) #Agrupa uno a uno los arrays y forma un array de arrays
+
+    comprobar_ancestros(tipos)
 
   end
 
