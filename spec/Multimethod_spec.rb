@@ -78,6 +78,32 @@ describe 'Tests sobre multimethods' do
    expect(A.new.respond_to?(:concat, false, [String,String,String])).to eq(false) # false, los tipos no coinciden
   end
 
+  it 'responds_to? con true me da true si algún ancestro tiene el multimethod' do
+    module Coso
+      partial_def :hacer_cosa, [] do
+        return "que cosa che!"
+      end
+
+      partial_def :hacer_cosa, [Object] do |object|
+        return "guarda que me dieron un parametro"
+      end
+    end
+
+    A.include(Coso)
+    a = A.new
+
+    expect(a.respond_to?(:hacer_cosa, true)).to eq(true)
+    expect(a.respond_to?(:hacer_cosa, true, 15)).to eq(true)
+
+  end
+
+  it 'responds_to? con true funciona cuando agrego un mixin directamente a un objeto' do
+    a = String.new
+    a.extend(Coso)
+    expect(a.respond_to?(:hacer_cosa, true)).to eq(true)
+    expect(a.respond_to?(:hacer_cosa, true, 15)).to eq(true)
+  end
+
 
 
   it 'La distancia del parámetro se calcula correctamente' do
