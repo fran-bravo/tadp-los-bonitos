@@ -23,9 +23,10 @@ describe 'Tests sobre multimethods' do
       partial_def :concat, [Object, Object] do |o1, o2|
         "Objetos concatenados"
       end
+    end
 
     end
-  end
+
 
   it 'Se definió un multimétodo' do
     expect(A.multimetodos.length).to eq(1)
@@ -133,4 +134,37 @@ describe 'Tests sobre multimethods' do
     expect(A.multimethod(:concat).class). to eq(Multimethod)
   end
 
-end
+  it 'Puedo llamar a self desde un multimethod' do
+
+    class Alumno
+      attr_accessor :nombre
+
+      def initialize(nombre)
+        self.nombre = nombre
+      end
+
+      def to_s
+        return self.nombre
+      end
+
+      partial_def :agregar_titulo, [String] do |titulo| #un alumno sabe recibirse. el modelo puede no reflejar con precision la realidad
+        titulo + self.to_s
+      end
+
+      partial_def :agregar_titulo, [] do
+        "Ing. " + self.to_s
+      end
+
+    end
+
+    dario = Alumno.new("Dario") #autobombo pattern
+
+    expect(dario.agregar_titulo).to eq("Ing. Dario") #si el test da verde me recibo?
+
+  end
+
+
+  end
+
+
+

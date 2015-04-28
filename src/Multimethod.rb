@@ -65,7 +65,11 @@ class Module
     end
 
     if self.multimethods.include?(simbolo)
-      define_method(simbolo) {|*tipos| self.class.multimethod(simbolo).elegir_multimethod_apropiado(*tipos)}
+      define_method(simbolo) {|*tipos| bloque = self.class.multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
+                              self.instance_exec(*tipos, &(bloque.block))} #qué mierda es esto lo puedo romper?
+      #básicamente lo bonito que teníamos de delegar al PartialBlock para la ejecución no sirve más
+      #tengo que romper sí o sí ese encapsulamiento y obtener el proc de más bajo nivel
+      #de otra forma pierdo la posibilidad de hacer instance_exec en la clase que quiero, Module
     end
 
   end
@@ -140,7 +144,7 @@ class Multimethod
       distancia_parametros(part_block.types, parametros)
     end
 
-    bloque.call(*parametros)
+    return bloque
 
   end
 

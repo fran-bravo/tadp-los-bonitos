@@ -11,6 +11,10 @@ class PartialBlock
 
   end
 
+  def block
+    return @block
+  end
+
   def validar_cantidad_parametros(*parametros)
     self.types.length == parametros.length
   end
