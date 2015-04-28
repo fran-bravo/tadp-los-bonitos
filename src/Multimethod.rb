@@ -46,6 +46,10 @@ end
 class Module
   attr_accessor :multimetodos #Lista con los multimethods definidos
 
+  def imm_provider
+    self.class
+  end
+
   def multimetodos
     @multimetodos= @multimetodos || []
   end
@@ -65,7 +69,7 @@ class Module
     end
 
     if self.multimethods.include?(simbolo)
-      define_method(simbolo) {|*tipos| bloque = self.class.multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
+      define_method(simbolo) {|*tipos| bloque = imm_provider.multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
                               self.instance_exec(*tipos, &(bloque.block))} #qué mierda es esto lo puedo romper?
       #básicamente lo bonito que teníamos de delegar al PartialBlock para la ejecución no sirve más
       #tengo que romper sí o sí ese encapsulamiento y obtener el proc de más bajo nivel
@@ -118,7 +122,7 @@ module Respondedor
   alias_method :ruby_respond_to?, :respond_to?
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
-    return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+    return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || imm_provider.tiene_el_multimethod(simbolo, boolean, parameter_list)
   end
 
 end
@@ -126,6 +130,11 @@ end
 
 
 class Object
+  def imm_provider
+#    self.singleton_class
+    self.class
+  end
+
   include Respondedor
 end
 
