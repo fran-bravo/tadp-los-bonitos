@@ -120,11 +120,16 @@ end
 
 module Respondedor
   alias_method :ruby_respond_to?, :respond_to?
+  alias_method :ruby_initialize, :initialize
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
     return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || imm_provider.tiene_el_multimethod(simbolo, boolean, parameter_list)
   end
 
+  def initialize(*params)
+    self.send(:define_singleton_method, :partial_def) {|simbolo, tipos, &bloque| self.singleton_class.partial_def(simbolo, tipos, &bloque)}
+    ruby_initialize(*params)
+  end
 end
 
 

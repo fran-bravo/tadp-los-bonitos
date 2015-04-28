@@ -27,7 +27,6 @@ describe 'Tests sobre multimethods' do
 
     end
 
-
   it 'Se definió un multimétodo' do
     expect(A.multimetodos.length).to eq(1)
   end
@@ -124,21 +123,22 @@ describe 'Tests sobre multimethods' do
 
   end
 
-#  it 'Funciona respond_to? cuando se agrega un multimetodo solo a una instancia' do
-#    nueva_a = A.new
-#
-#    nueva_a.partial_def :multiplicar, [Integer, Integer] do |num1, num2| num1*num2 end #De momento no está implementado
-#    expect(nueva_a.respond_to?(:multiplicar, false, [Integer, Integer])).to eq(true)
-#  end
+  it 'Funciona respond_to? cuando se agrega un multimetodo solo a una instancia' do
+    nueva_a = A.new
 
-#  it 'Funciona un multimétodo agregado sólo a una instancia' do
-#    otra_a = A.new
-#
-#    otra_a.partial_def :hablar, [String] do  |s| return s end
-#    expect(otra_a.hablar("ola ke ase")). to eq("ola ke ase")
+    nueva_a.partial_def :multiplicar, [Integer, Integer] do |num1, num2| num1*num2 end #De momento no está implementado
+    expect(nueva_a.respond_to?(:multiplicar, [Integer, Integer])).to eq(true)
+  end
 
-#  end
+=begin
+  it 'Funciona un multimétodo agregado sólo a una instancia' do
+    otra_a = A.new
 
+    otra_a.partial_def :hablar, [String] do  |s| return s end
+    expect(otra_a.hablar("ola ke ase")). to eq("ola ke ase")
+
+  end
+=end
 
   it 'Muestra la representacion de un multimethod' do
     expect(A.multimethod(:concat).class). to eq(Multimethod)
@@ -173,6 +173,19 @@ describe 'Tests sobre multimethods' do
 
   end
 
+  it 'Un objeto entiende partial_def' do
+    a = A.new
+
+    expect(a.respond_to?(:partial_def)).to eq(true)
+  end
+
+  it 'Se define un partial_def en un objeto y solo para ese objeto' do
+    a = A.new
+    a.partial_def(:gritar, [String]) do |grito| grito + "!" end
+
+    expect(a.gritar("buu")).to eq("buu!")
+    expect(A.new.respond_to?(:gritar)).to eq(false)
+  end
 
   end
 
