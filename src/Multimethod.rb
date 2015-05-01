@@ -12,6 +12,10 @@ class Multimethod
     self.bloques_parciales = []
   end
 
+  def cantidad_de_firmas()
+    self.bloques_parciales.size
+  end
+
   def tiene_la_sobrecarga(tipos)
     !(self.pos_firma_exacta(tipos).nil?)
   end
@@ -40,6 +44,25 @@ class Multimethod
 
   end
 
+  def todas_mis_firmas()
+    firmas = []
+    self.bloques_parciales.each do |bloque| firmas << bloque.types  end
+    firmas
+  end
+
+  def merge_with(multimethod)
+    multimethod.todas_mis_firmas.each do |firma|
+      if (!self.tiene_la_sobrecarga(firma)) #si el bloque con el que estoy mergeando tiene algo que yo no, lo agarro!
+        self.agregar_bloque(multimethod.bloques_parciales[multimethod.pos_firma_exacta(firma)])
+      end
+    end
+  end
+
+end
+
+module Respondedor
+  alias_method :ruby_respond_to?, :respond_to?
+  alias_method :ruby_initialize, :initialize
 end
 
 
@@ -95,10 +118,23 @@ class Module
 
   def dame_multimethod(simbolo)
 
-    multimethod(simbolo) #esto es sin herencia
+    mm_a_proveer = Multimethod.new(simbolo) #hago un multimethod vacío
 
-    #con herencia, tengo que devolver un multimethod "mergeado" con los de los ancestros
+    #recordando que cada clase es su primer propio ancestor, empiezo a mergear
+    self.ancestors.each do |ancestro|
+      if ancestro.ruby_respond_to?(simbolo)
+        break
+      end
+      if ancestro.tiene_el_multimethod(simbolo, false) #el false no hace falta pero lo pongo para que se vea
+        mm_a_proveer.merge_with(ancestro.multimethod(simbolo))
+      end
+    end
 
+    if mm_a_proveer.cantidad_de_firmas == 0 #esto significa que no heredé nada, porque el símbolo este no lo tenia nadie
+      raise_error(NoMethodError)
+    end
+
+    mm_a_proveer
   end
 
   def tiene_el_multimethod(simbolo, boolean=false, parameter_list=nil)
