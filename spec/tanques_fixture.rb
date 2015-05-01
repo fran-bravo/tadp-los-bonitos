@@ -1,3 +1,6 @@
+require_relative '../src/Multimethod'
+require_relative '../src/PartialBlock'
+
 class Soldado
 # ... implementación de soldado
 end
