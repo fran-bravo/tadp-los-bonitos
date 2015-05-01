@@ -2,6 +2,12 @@ require_relative '../src/Multimethod'
 require_relative '../src/PartialBlock'
 
 class Soldado
+  attr_accessor :nombre
+
+  def initialize(n="")
+    #esto lo tengo que agregar porque a veces los test del enunciado llaman al constructor sin nada, y a veces con un nombre
+    self.nombre= n
+  end
 # ... implementación de soldado
 end
 
