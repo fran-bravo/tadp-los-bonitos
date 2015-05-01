@@ -6,13 +6,99 @@ describe 'pruebas sobre herencia de multimétodos' do
   class Panzer < Tanque
   end
 
-  it 'Panzer hereda el multimétodo de Tanque' do
-    panzer = Panzer.new
-    expect(panzer.ataca_a(Soldado.new)).to eq("splat")
+
+  describe 'pruebas basicas' do
+
+    it 'Panzer hereda el multimétodo de Tanque' do
+      panzer = Panzer.new
+      expect(panzer.ataca_a(Soldado.new)).to eq("splat")
+      #este test falla, vaya uno a saber por qué
+      #se supone que Ruby es imperativo, sin embargo cuando corro este test me tira uber-kaboom
+      #que no sólo está definido abajo sino que en un describe distinto
+      #este it no debería ni estar enterado de que en algún momento en otro lado se define algo que tira uber-kaboom
+      #¿le podemos echar la culpa de esto a rspec?
+    end
+
+    it 'Panzer hereda otro multimétodo de Tanque' do
+      panzer = Panzer.new
+      expect(panzer.ataca_a(Tanque.new)).to eq("boom")
+    end
+
+    it 'Panzer hereda el multimétodo de atacar a un tanque y matchea cuando le paso un panzer' do
+      panzer = Panzer.new
+      expect(panzer.ataca_a(Panzer.new)).to eq("boom")
+    end
+
+  end
+
+  describe 'pruebas sobre redefiniciones parciales'do
+
+    class Radar
+    end
+    class Panzer < Tanque
+
+      def neutralizar(objetivo)
+        "pium pium - neutralizado"
+      end
+
+      def uber_atacar_a(objetivo)
+        "uber-kaboom"
+      end
+
+      partial_def :ataca_a, [Radar] do |radar|
+        #Esta definición se suma a las heredadas de Tanque, sin pisar ninguna
+        self.neutralizar(radar)
+      end
+
+      partial_def :ataca_a, [Soldado] do |soldado|
+        #Pisa la definición parcial de la superclase correspondiente al soldado
+        self.uber_atacar_a(soldado)
+      end
+
+    end
+
+    it 'Una definición parcial sumada a las ya existentes funca OK' do
+      radarin = Radar.new
+      panzer = Panzer.new
+
+      expect(panzer.ataca_a(radarin)).to eq("pium pium - neutralizado")
+    end
+
+    it 'Una definición parcial que redefine una heredada funca OK' do
+      mambru = Soldado.new
+      panzer = Panzer.new
+
+      expect(panzer.ataca_a(mambru)).to eq("uber-kaboom")
+    end
+
+    it 'Una definición parcial en una subclase no interfiere con la clase original' do
+      radarin = Radar.new
+      mambru = Soldado.new
+      tanque = Tanque.new
+
+      expect(tanque.ataca_a(mambru)).to eq("splat")
+      expect{tanque.ataca_a(radarin)}.to raise_error(NoMethodError)
+    end
+
+    it 'Una definición parcial en una subclase no interfiere con otras subclases' do
+      class TanqueConRuedas < Tanque
+      end
+
+      radarin = Radar.new
+      tanque_raro = TanqueConRuedas.new
+      mambru = Soldado.new
+
+      expect(tanque_raro.ataca_a(mambru)).to eq("splat")
+      expect{tanque_raro.ataca_a(radarin)}.to raise_error(NoMethodError)
+
+    end
+
+
   end
 
 
-  describe 'tests sobre orden de redefinición' do
+
+  describe 'tests sobre redefinición entre métodos parciales y totales' do
 
     class Tanque
       def chocar(objetivo)
@@ -21,13 +107,14 @@ describe 'pruebas sobre herencia de multimétodos' do
     end
 
     class NueveDeArea < Tanque
-      def ataca_a(objetivo)
+      def ataca_a(objetivo) #redefino un método parcial con uno total
         return "uh! fuerte, cruzado y desviado"
       end
     end
 
     class Arquero < Tanque
 
+      #y acá redefino un método total con uno parcial
       partial_def :chocar, [] do
         "que palo se pego!"
       end
@@ -59,4 +146,48 @@ describe 'pruebas sobre herencia de multimétodos' do
     end
 
   end
+
+  describe 'tests sobre especificidad de multimétodos y lugar en la jerarquía de herencia' do
+
+    class A
+      partial_def :m, [String] do |s|
+        "A>m #{s}"
+      end
+
+      partial_def :m, [Numeric] do |n|
+        "A>m" * n
+      end
+
+      partial_def :m, [Object] do |o|
+        "A>m and Object"
+      end
+
+    end
+
+    class B < A
+      partial_def :m, [Object] do |o|
+        "B>m and Object"
+      end
+    end
+
+    it 'multimétodo específico heredado vence a multimétodo vago de la clase propia' do
+
+      #cómo entender este test
+      #B define un m para Object
+      #A define un m para Object, uno para String y uno para Numeric
+      #B hereda de a
+      #si llamo al método con Object, tiene que ejecutar el de B, por encontrarse más cerca en la jerarquía
+      #pero si llamo al método con String o Numeric tiene que ejecutar el de A
+      #porque aunque esté más lejos en la jerarquía que el de B para Object, es más específico
+
+      b = B.new
+
+      expect(b.m("hello")).to eq("A>m hello") # ejecuta A>m[String]
+      expect(b.m(Object.new)).to eq("B>m and Object")
+      expect(b.m(3)).to eq("A>mA>mA>m")
+
+    end
+
+  end
+
 end
