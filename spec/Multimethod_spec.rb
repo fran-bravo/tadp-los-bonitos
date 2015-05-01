@@ -1,6 +1,7 @@
 require 'rspec'
 require_relative '../src/PartialBlock'
 require_relative '../src/Multimethod'
+require_relative './tanques_fixture'
 
 describe 'Tests sobre multimethods' do
 
@@ -134,6 +135,23 @@ describe 'Tests sobre multimethods' do
     expect(A.new.concat('hello', 3)). to eq("hellohellohello") #Devuelve esto porque el método se está redefiniendo en un test anterior :/
     expect(A.new.concat(['hello', ' world', '!'])). to eq("hello world!")
 
+  end
+
+  it 'Cuando abro una clase y vuelvo a definir un multimetodo, piso al anterior' do
+    mambru = Soldado.new
+    denis = Tanque.new
+
+    expect(denis.ataca_a(mambru)).to eq("splat")
+
+  end
+
+  it 'Cuando abro una clase y defino un metodo parcial, no pisa a un metodo parcial con otra firma' do
+    denis = Tanque.new
+    silva = Tanque.new
+    boeing737 = Avion.new
+
+    expect(denis.ataca_a(silva)).to eq("boom")
+    expect(denis.ataca_a(boeing737)).to eq("niuuuuuuuum")
   end
 
 
