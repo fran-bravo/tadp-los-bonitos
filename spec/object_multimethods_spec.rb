@@ -30,7 +30,7 @@ describe 'Tests sobre multimetodos definidos en objetos' do
     a.partial_def(:gritar, [String]) do |grito| grito + "!" end
 
     expect(a.gritar("buu")).to eq("buu!")
-    expect(A.new.respond_to?(:gritar)).to eq(false) 
+    expect(A.new.respond_to?(:gritar)).to eq(false)
   end
 
 
