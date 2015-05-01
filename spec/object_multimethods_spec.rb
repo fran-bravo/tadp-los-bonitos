@@ -74,7 +74,7 @@ end
    a = String.new
    a.extend(Coso)
    expect(a.respond_to?(:hacer_cosa, true)).to eq(true)
-   expect(a.respond_to?(:hacer_cosa, true, 15)).to eq(true)
+   expect(a.respond_to?(:hacer_cosa, true, [Integer])).to eq(true)
  end
 
 #para este test de acá arriba habría que esperar a implementar herencia
@@ -85,7 +85,11 @@ end
   end
 
   it 'el scope del multimethod definido en un objeto es sólo ese objeto y no se propaga a toda la clase' do
-  expect{Tanque.new.tocar_bocina_a(Tanque.new)}.to raise_error
+    expect{Tanque.new.tocar_bocina_a(Tanque.new)}.to raise_error
+  end
+
+  it 'un objeto con algo parcialmente definido sabe que responde a eso' do
+    expect(tanque_modificado.respond_to?(:tocar_bocina_a, false, [Soldado])).to eq(true)
   end
 
 end

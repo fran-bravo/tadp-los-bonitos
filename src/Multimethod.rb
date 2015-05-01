@@ -74,7 +74,11 @@ class Module
 #  end
 
   def multimetodos
-    @multimetodos= @multimetodos || []
+    begin
+      return @multimetodos= @multimetodos || [] #esto lo tengo que try..catchear porque no todos los que heredan de module pueden mutarse así
+    rescue RuntimeError
+      return [] #placeholder para cosas que nunca van a poder ser modificadas, siempre retornen que no tienen multimétodos
+    end
   end
 
   def multimethods
@@ -167,7 +171,24 @@ module Respondedor
   alias_method :ruby_initialize, :initialize
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
-    return (ruby_respond_to?(simbolo, boolean) && parameter_list==nil) || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+    lo_responde = false
+    lo_responde = lo_responde || (ruby_respond_to?(simbolo, boolean) && parameter_list==nil)
+
+    #lo_responde = lo_responde || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+
+    begin
+      lo_responde = lo_responde || self.singleton_class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+    rescue
+      lo_responde = lo_responde || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+        #ESTO RUBY NUNCA LO EJECUTA
+        #NO SE POR QUE
+    else
+      #asi que lo repito acá, y sí lo ejectuta
+      lo_responde = lo_responde || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+    end
+
+
+    return lo_responde
   end
 
   def initialize(*params)
