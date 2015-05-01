@@ -46,7 +46,7 @@ describe 'Tests sobre multimetodos definidos en objetos' do
     nueva_a = A.new
 
     nueva_a.partial_def :multiplicar, [Integer, Integer] do |num1, num2| num1*num2 end #De momento no está implementado
-    expect(nueva_a.respond_to?(:multiplicar, [Integer, Integer])).to eq(true)
+    expect(nueva_a.respond_to?(:multiplicar, false, [Integer, Integer])).to eq(true)
   end
 
   begin
