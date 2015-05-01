@@ -69,7 +69,7 @@ class Module
     end
 
     if self.multimethods.include?(simbolo)
-      define_method(simbolo) {|*tipos| bloque = imm_provider.multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
+      define_method(simbolo) {|*tipos| bloque = imm_provider.dame_multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
                               self.instance_exec(*tipos, &(bloque.block))} #qué mierda es esto lo puedo romper?
       #básicamente lo bonito que teníamos de delegar al PartialBlock para la ejecución no sirve más
       #tengo que romper sí o sí ese encapsulamiento y obtener el proc de más bajo nivel
@@ -91,6 +91,14 @@ class Module
 
   def multimethod(simbolo)
     self.multimetodos.detect do |multimethod| multimethod.simbolo == simbolo end
+  end
+
+  def dame_multimethod(simbolo)
+
+    multimethod(simbolo) #esto es sin herencia
+
+    #con herencia, tengo que devolver un multimethod "mergeado" con los de los ancestros
+
   end
 
   def tiene_el_multimethod(simbolo, boolean=false, parameter_list=nil)
