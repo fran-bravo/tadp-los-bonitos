@@ -60,12 +60,6 @@ class Multimethod
 
 end
 
-module Respondedor
-  alias_method :ruby_respond_to?, :respond_to?
-  alias_method :ruby_initialize, :initialize
-end
-
-
 class Module
   attr_accessor :multimetodos #Lista con los multimethods definidos
 
@@ -141,6 +135,12 @@ class Module
     mm_a_proveer
   end
 
+  def esta_en_la_jerarquia(simbolo, boolean=false, parameter_list=nil)
+    self.ancestors.any? do |ancestro|
+        ancestro.tiene_el_multimethod(simbolo, false, parameter_list)
+    end
+  end
+
   def tiene_el_multimethod(simbolo, boolean=false, parameter_list=nil)
     lo_tiene = false
 
@@ -150,6 +150,7 @@ class Module
       lo_tiene = lo_tiene || self.multimethods.include?(simbolo) && self.multimethod(simbolo).acepta_la_sobrecarga(parameter_list)
     end
 
+=begin
     if boolean==true
       for ancestro in self.ancestors
         lo_tiene = lo_tiene || ancestro.tiene_el_multimethod(simbolo, false, parameter_list)
@@ -158,6 +159,7 @@ class Module
         #todos los ancestros son siempre Modules y por lo tanto lo entienden
       end
     end
+=end
 
     return lo_tiene
 
@@ -174,17 +176,17 @@ module Respondedor
     lo_responde = false
     lo_responde = lo_responde || (ruby_respond_to?(simbolo, boolean) && parameter_list==nil)
 
-    #lo_responde = lo_responde || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+    #lo_responde = lo_responde || self.class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
 
     begin
-      lo_responde = lo_responde || self.singleton_class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+      lo_responde = lo_responde || self.singleton_class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
     rescue
-      lo_responde = lo_responde || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+      lo_responde = lo_responde || self.class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
         #ESTO RUBY NUNCA LO EJECUTA
         #NO SE POR QUE
     else
       #asi que lo repito acá, y sí lo ejectuta
-      lo_responde = lo_responde || self.class.tiene_el_multimethod(simbolo, boolean, parameter_list)
+      lo_responde = lo_responde || self.class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
     end
 
 

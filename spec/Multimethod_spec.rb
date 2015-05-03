@@ -60,37 +60,47 @@ describe 'Tests sobre multimethods' do
 
   describe 'tests sobre respond_to?' do
 
-    it 'funciona el responds_to? para partial_def' do
+    it 'funciona el respond_to? para partial_def' do
 
       expect(A.new.respond_to?(:concat)).to eq(true)
 
     end
 
-    it 'funciona el responds_to? para un método común, en una clase que definió un partial method' do
+    it 'funciona el respond_to? para un método común, en una clase que definió un partial method' do
       expect(A.new.respond_to?(:to_s)).to eq(true)
       # true, define el método normalmente
     end
 
-    it 'funciona el responds_to? para un multimethod preguntando por una firma exactamente como una de las que tiene' do
+    it 'funciona el respond_to? para un multimethod preguntando por una firma exactamente como una de las que tiene' do
       expect(A.new.respond_to?(:concat, false, [String,String])).to eq(true)
       # true, los tipos coinciden
     end
 
-    it 'funciona el responds_to? para un multimethod preguntando por una firma que matchea por herencia con una de las que tiene' do
+    it 'funciona el respond_to? para un multimethod preguntando por una firma que matchea por herencia con una de las que tiene' do
       expect(A.new.respond_to?(:concat, false, [Integer,A])).to eq(true)
       #esto matchea con el partial def que toma [Object, Object]
     end
 
-    it 'puedo preguntar responds_to? por algo que es un método y no un multimétodo, y si especifico la firma no matchea' do
+    it 'puedo preguntar respond_to? por algo que es un método y no un multimétodo, y si especifico la firma no matchea' do
      expect(A.new.respond_to?(:to_s, false, [String])).to eq(false)
       # false, no es un multimethod
     end
 
-    it 'puedo preguntar responds_to? por un multimethod que existe pero con una firma que no tiene, y da false' do
+    it 'puedo preguntar respond_to? por un multimethod que existe pero con una firma que no tiene, y da false' do
      expect(A.new.respond_to?(:concat, false, [String,String,String])).to eq(false) # false, los tipos no coinciden
     end
 
-    it 'responds_to? con true me da true si algún ancestro tiene el multimethod' do
+    it 'respond_to? me da true si algún ancestro tiene el multimethod' do
+      class B < A
+      end
+
+      b = B.new
+      expect(b.respond_to?(:concat, false, [String, String])).to eq(true)
+      a = A.new
+      expect(a.respond_to?(:concat, false, [String, String])).to eq(true)
+    end
+
+    it 'respond_to? me da true si algún ancestro tiene el multimethod (con mixins)' do
       module Coso
         partial_def :hacer_cosa, [] do
           return "que cosa che!"
@@ -104,8 +114,8 @@ describe 'Tests sobre multimethods' do
       A.include(Coso)
       a = A.new
 
-      expect(a.respond_to?(:hacer_cosa, true)).to eq(true)
-      expect(a.respond_to?(:hacer_cosa, true, 15)).to eq(true)
+      expect(a.respond_to?(:hacer_cosa, false)).to eq(true)
+      expect(a.respond_to?(:hacer_cosa, false, 15)).to eq(true)
 
     end
   end #end describe

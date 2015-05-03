@@ -49,7 +49,7 @@ describe 'Tests sobre multimetodos definidos en objetos' do
     expect(nueva_a.respond_to?(:multiplicar, false, [Integer, Integer])).to eq(true)
   end
 
-  begin
+ # begin
     it 'Funciona un multimétodo agregado sólo a una instancia' do
       otra_a = A.new
 
@@ -57,7 +57,7 @@ describe 'Tests sobre multimetodos definidos en objetos' do
       expect(otra_a.hablar("ola ke ase")). to eq("ola ke ase")
 
     end
-end
+#end
 
  it 'responds_to? con true funciona cuando agrego un mixin directamente a un objeto' do
    module Coso
@@ -90,6 +90,15 @@ end
 
   it 'un objeto con algo parcialmente definido sabe que responde a eso' do
     expect(tanque_modificado.respond_to?(:tocar_bocina_a, false, [Soldado])).to eq(true)
+  end
+
+  it 'un multimethod definido en un objeto se agrega a la lista de multimethods de su singleton class' do
+    expect(tanque_modificado.singleton_class.multimetodos.size).to eq(1)
+  end
+
+  it 'los multimethods que hay en la clase no están en la singleton class' do
+    expect(Tanque.multimethods.size).to eq(1)
+    expect(Tanque.new.singleton_class.multimethods.size).to eq(0)
   end
 
 end
