@@ -60,12 +60,31 @@ class Multimethod
 
 end
 
+
+class Base
+  attr_accessor :cliente
+
+  def initialize(cliente)
+    self.cliente=(cliente)
+  end
+
+  def method_missing(sym, *args)
+    #cliente.ejecutar_mm_especifico(sym, *args)
+    super #esto despues se comenta
+  end
+
+end
+
 class Module
-  attr_accessor :multimetodos #Lista con los multimethods definidos
+  attr_accessor :multimetodos, :base #Lista con los multimethods definidos
 
 #  def imm_provider
 #    self.class
 #  end
+
+  def initialize
+    self.base = Base.new(self)
+  end
 
   def multimetodos
     begin
