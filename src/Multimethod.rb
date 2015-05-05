@@ -65,10 +65,11 @@ end
 
 
 class Base
-  attr_accessor :cliente
+  attr_accessor :cliente, :parametros
 
-  def initialize(cliente)
+  def initialize(cliente, *args)
     self.cliente=(cliente)
+    self.parametros = args
   end
 end
 
@@ -76,13 +77,7 @@ end
 
 class Module
   attr_accessor :multimetodos #Lista con los multimethods definidos
-
-#  def imm_provider
-#    self.class
-#  end
-
-
-
+  
   def multimetodos
     begin
       return @multimetodos= @multimetodos || [] #esto lo tengo que try..catchear porque no todos los que heredan de module pueden mutarse así
@@ -165,17 +160,6 @@ class Module
     else
       lo_tiene = lo_tiene || self.multimethods.include?(simbolo) && self.multimethod(simbolo).acepta_la_sobrecarga(parameter_list)
     end
-
-=begin
-    if boolean==true
-      for ancestro in self.ancestors
-        lo_tiene = lo_tiene || ancestro.tiene_el_multimethod(simbolo, false, parameter_list)
-        #aca va false porque esto no tiene que ser recursivo! si lo fuera entraria en un loop infinito
-        #basta con que alguno de sus ancestros (que ya vienen convenientemente aplanados) tenga el multimethod
-        #todos los ancestros son siempre Modules y por lo tanto lo entienden
-      end
-    end
-=end
 
     return lo_tiene
 
@@ -275,14 +259,8 @@ end
 class Object
   include Respondedor
 
-
-#  def imm_provider
-#    self.singleton_class
-#    self.class
-#  end
-
-  def base
-    return Base.new(self)
+  def base(*args)
+    return Base.new(self, *args)
   end
 
   def ejecutar_mm_especifico(sym, *tipos_y_args) #por ejemplo le llega :m, [Integer], arg1, arg2...
@@ -296,8 +274,6 @@ class Object
 
 
 end
-
-
 
 class Array
   def sum

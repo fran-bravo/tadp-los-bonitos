@@ -59,7 +59,7 @@ describe 'Tests sobre multimetodos definidos en objetos' do
     end
 #end
 
- it 'responds_to? con true funciona cuando agrego un mixin directamente a un objeto' do
+ it 'responds_to? funciona cuando agrego un mixin directamente a un objeto' do
    module Coso
      partial_def :hacer_cosa, [] do
        return "que cosa che!"
@@ -73,8 +73,8 @@ describe 'Tests sobre multimetodos definidos en objetos' do
 
    a = String.new
    a.extend(Coso)
-   expect(a.respond_to?(:hacer_cosa, true)).to eq(true)
-   expect(a.respond_to?(:hacer_cosa, true, [Integer])).to eq(true)
+   expect(a.respond_to?(:hacer_cosa, false)).to eq(true)
+   expect(a.respond_to?(:hacer_cosa, false, [Integer])).to eq(true)
  end
 
 #para este test de acá arriba habría que esperar a implementar herencia

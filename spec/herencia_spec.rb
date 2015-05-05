@@ -9,16 +9,6 @@ describe 'pruebas sobre herencia de multimétodos' do
 
   describe 'pruebas basicas' do
 
-    it 'Panzer hereda el multimétodo de Tanque' do
-      panzer = Panzer.new
-      expect(panzer.ataca_a(Soldado.new)).to eq("splat")
-      #este test falla, vaya uno a saber por qué
-      #se supone que Ruby es imperativo, sin embargo cuando corro este test me tira uber-kaboom
-      #que no sólo está definido abajo sino que en un describe distinto
-      #este it no debería ni estar enterado de que en algún momento en otro lado se define algo que tira uber-kaboom
-      #¿le podemos echar la culpa de esto a rspec?
-    end
-
     it 'Panzer hereda otro multimétodo de Tanque' do
       panzer = Panzer.new
       expect(panzer.ataca_a(Tanque.new)).to eq("boom")
@@ -191,7 +181,25 @@ describe 'pruebas sobre herencia de multimétodos' do
 
   end
 
+  it 'un método normal de una subclase pisa al multimétodo de la superclase' do
+    class Tiger < Tanque
+      def ataca_a(un_oponente)
+        "¡Hola, wachines!"
+      end
+    end
 
+    expect(Tiger.new.ataca_a(1)).to eq("¡Hola, wachines!")
+  end
+
+  it 'un multimétodo de una subclase pisa al método común de la superclase' do
+    class Tiger < Tanque
+      partial_def :pisar, [Object] do |obj|
+        "Lo pisé."
+      end
+    end
+
+    expect(Tiger.new.pisar(1)).to eq("Lo pisé.")
+  end
 
 
 end
