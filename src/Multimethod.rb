@@ -60,6 +60,9 @@ class Multimethod
 
 end
 
+class BaseError < RuntimeError
+end
+
 
 class Base
   attr_accessor :cliente
@@ -67,24 +70,18 @@ class Base
   def initialize(cliente)
     self.cliente=(cliente)
   end
-
-  def method_missing(sym, *args)
-    #cliente.ejecutar_mm_especifico(sym, *args)
-    super #esto despues se comenta
-  end
-
 end
 
+
+
 class Module
-  attr_accessor :multimetodos, :base #Lista con los multimethods definidos
+  attr_accessor :multimetodos #Lista con los multimethods definidos
 
 #  def imm_provider
 #    self.class
 #  end
 
-  def initialize
-    self.base = Base.new(self)
-  end
+
 
   def multimetodos
     begin
@@ -220,14 +217,18 @@ end
 
 
 
-class Object
-#  def imm_provider
-#    self.singleton_class
-#    self.class
-#  end
+class Base
 
-  include Respondedor
+  def method_missing(sym, *args)
+    if cliente.respond_to?(sym, true, args[0]) #recordando que el args[0] debería ser la lista de parámetros del multimethod
+      cliente.ejecutar_mm_especifico(sym, *args)
+    else
+      raise BaseError #o bien podría tirarse directamente un NoMethodError (que se puede hacer poniendo super)
+    end
+  end
+
 end
+
 
 #********************************************************************************************************
 #************************************Ejecucion de un multimethod*****************************************
@@ -248,6 +249,14 @@ class Multimethod
 
   end
 
+  def elegir_multimethod_exacto(*parametros)
+    bloque_a_retornar = bloques_parciales.find do |partial_block|
+      partial_block.types == parametros
+    end
+    return bloque_a_retornar
+  end
+
+
   def distancia_parametros(tipos, parametros)
     distancias = tipos.map do |tipo|
       indice = tipos.find_index(tipo)
@@ -262,6 +271,32 @@ class Multimethod
   end
 
 end
+
+class Object
+  include Respondedor
+
+
+#  def imm_provider
+#    self.singleton_class
+#    self.class
+#  end
+
+  def base
+    return Base.new(self)
+  end
+
+  def ejecutar_mm_especifico(sym, *tipos_y_args) #por ejemplo le llega :m, [Integer], arg1, arg2...
+    tipos, *args = tipos_y_args
+    bloque = self.singleton_class.dame_multimethod(sym).elegir_multimethod_exacto(*tipos)
+    if bloque == nil
+      raise BaseError
+    end
+    self.instance_exec(*args, &(bloque.block))
+  end
+
+
+end
+
 
 
 class Array
