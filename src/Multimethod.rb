@@ -30,7 +30,7 @@ class Multimethod
   end
 
   def pos_firma_posible(tipos)
-    return self.bloques_parciales.find_index do |bloque_parcial| bloque_parcial.matches(*tipos) end
+    return self.bloques_parciales.find_index do |bloque_parcial| bloque_parcial.matchea(*tipos) end
   end
 
   def agregar_bloque(partial_block)
@@ -69,7 +69,9 @@ class Base
 
   def initialize(cliente, *args)
     self.cliente=(cliente)
-    self.parametros = args
+    unless args.nil?
+      self.parametros = args
+    end
   end
 end
 
@@ -77,7 +79,7 @@ end
 
 class Module
   attr_accessor :multimetodos #Lista con los multimethods definidos
-  
+
   def multimetodos
     begin
       return @multimetodos= @multimetodos || [] #esto lo tengo que try..catchear porque no todos los que heredan de module pueden mutarse así
@@ -101,11 +103,12 @@ class Module
     end
 
     if self.multimethods.include?(simbolo)
-      define_method(simbolo) {|*tipos| bloque = self.singleton_class.dame_multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
-                              self.instance_exec(*tipos, &(bloque.block))} #qué mierda es esto lo puedo romper?
-      #básicamente lo bonito que teníamos de delegar al PartialBlock para la ejecución no sirve más
-      #tengo que romper sí o sí ese encapsulamiento y obtener el proc de más bajo nivel
-      #de otra forma pierdo la posibilidad de hacer instance_exec en la clase que quiero, Module
+      define_method(simbolo) {|*tipos|
+        bloque = self.singleton_class.dame_multimethod(simbolo).elegir_multimethod_apropiado(*tipos)
+        self.instance_exec(*tipos, &(bloque.block))} #qué mierda es esto lo puedo romper?
+        #básicamente lo bonito que teníamos de delegar al PartialBlock para la ejecución no sirve más
+        #tengo que romper sí o sí ese encapsulamiento y obtener el proc de más bajo nivel
+        #de otra forma pierdo la posibilidad de hacer instance_exec en la clase que quiero, Module
     end
 
   end

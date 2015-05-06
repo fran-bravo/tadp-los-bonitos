@@ -24,6 +24,7 @@ describe 'Tests sobre multimethods' do
       partial_def :concat, [Object, Object] do |o1, o2|
         "Objetos concatenados"
       end
+
     end
 
   end
@@ -115,8 +116,18 @@ describe 'Tests sobre multimethods' do
       a = A.new
 
       expect(a.respond_to?(:hacer_cosa, false)).to eq(true)
-      expect(a.respond_to?(:hacer_cosa, false, 15)).to eq(true)
+      expect(a.respond_to?(:hacer_cosa, false, [Integer])).to eq(true)
 
+    end
+
+    it 'respond_to? me da false si no coinciden los tipos (aunque sí la aridad)' do
+      class C < A
+        partial_def :concat, [String, String, Integer, Array] do |s1, s2, i, a|
+          s1
+        end
+      end
+
+      expect(C.new.respond_to?(:concat, false, [String, String, Integer, Integer])).to eq(false)
     end
   end #end describe
 
