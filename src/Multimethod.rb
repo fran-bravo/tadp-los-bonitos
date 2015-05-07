@@ -176,22 +176,14 @@ module Respondedor
   alias_method :ruby_initialize, :initialize
 
   def respond_to?(simbolo, boolean=false, parameter_list=nil) #El primero es el símbolo, el segundo el boolean y el tercero la lista de clases. Puede no estar.
-    lo_responde = false
-    lo_responde = lo_responde || (ruby_respond_to?(simbolo, boolean) && parameter_list==nil)
 
-    #lo_responde = lo_responde || self.class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
+    lo_responde = (ruby_respond_to?(simbolo, boolean) && parameter_list==nil)
 
     begin
       lo_responde = lo_responde || self.singleton_class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
-    rescue
-      lo_responde = lo_responde || self.class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
-        #ESTO RUBY NUNCA LO EJECUTA
-        #NO SE POR QUE
-    else
-      #asi que lo repito acá, y sí lo ejectuta
+    rescue TypeError => e
       lo_responde = lo_responde || self.class.esta_en_la_jerarquia(simbolo, boolean, parameter_list)
     end
-
 
     return lo_responde
   end
