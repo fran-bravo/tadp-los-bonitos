@@ -53,6 +53,28 @@ describe 'Pruebas sobre base' do
     end
   end
 
+  class C < B
+    partial_def :concat, [Integer] do |i1|
+      base.concat([String, Integer], "Hola ", i1)
+    end
+  end
+
+  module Sumador
+    partial_def :operacion, [Integer, Integer] do |i1, i2|
+      i1 + i2
+    end
+  end
+
+  module Restador
+    partial_def :operacion, [Integer, Integer] do |i1, i2|
+      i1 - i2
+    end
+  end
+
+  class ClaseModular
+    include Sumador
+  end
+
 
   it 'test del enunciado' do
     expect(B.new.m(1)).to eq("A>m => B>m_numeric => B>m_integer(1)")
@@ -74,5 +96,29 @@ describe 'Pruebas sobre base' do
 
     expect(b.concat(["J", "u", "l", "i"], "Hola")).to eq("Juli")
   end
+
+  it 'Base recorre mas que solo la super clase' do
+    expect(C.new.concat(2)).to eq("Hola Hola ")
+  end
+
+  it 'Base aplicada a un module' do
+    objeto_modular = ClaseModular.new
+    objeto_modular.partial_def(:operacion, [Array]) do |a|
+      base.operacion([Integer, Integer], a[0], a[1])
+    end
+
+    expect(objeto_modular.operacion([2,3])).to eq(5)
+  end
+
+  it 'Base prioridad de modules' do
+    objeto_modular = ClaseModular.new
+    objeto_modular.singleton_class.include(Restador) #Esto también funciona haciendo un obj.extend(Restador) =D
+    objeto_modular.partial_def(:operacion, [Array]) do |a|
+      base.operacion([Integer, Integer], a[0], a[1])
+    end
+
+    expect(objeto_modular.operacion([4,2])).to eq(2)
+  end
+
 
 end
