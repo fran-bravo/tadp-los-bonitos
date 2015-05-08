@@ -71,6 +71,12 @@ describe 'Pruebas sobre base' do
     end
   end
 
+  module Concatenador
+    partial_def :concat, [String, Integer] do |s, i|
+      s + i.to_s
+    end
+  end
+
   class ClaseModular
     include Sumador
   end
@@ -110,7 +116,7 @@ describe 'Pruebas sobre base' do
     expect(objeto_modular.operacion([2,3])).to eq(5)
   end
 
-  it 'Base prioridad de modules' do
+  it 'Base prioridad de un module agregado despues de otro module' do
     objeto_modular = ClaseModular.new
     objeto_modular.singleton_class.include(Restador) #Esto también funciona haciendo un obj.extend(Restador) =D
     objeto_modular.partial_def(:operacion, [Array]) do |a|
@@ -118,6 +124,18 @@ describe 'Pruebas sobre base' do
     end
 
     expect(objeto_modular.operacion([4,2])).to eq(2)
+  end
+
+  it 'Base prioridad de module sobre herencia' do
+    a = A.new
+    a.extend(Concatenador)
+
+    a.partial_def(:concat, [String, Float]) do |s, f|
+      base.concat([String, Integer], s, f.to_i)
+    end
+
+
+    expect(a.concat("Asd", 2.0)).to eq("Asd2")
   end
 
 
