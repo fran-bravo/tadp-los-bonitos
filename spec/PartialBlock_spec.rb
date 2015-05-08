@@ -42,7 +42,7 @@ describe 'Pruebas sobre partial blocks'  do
 
   end
 
-  it 'un bloque no matchea con argumentos no matcheables' do #WHAT? buen nombre
+  it 'un bloque no matchea con argumentos inválidos' do
 
     expect(un_block.matches(2, "hola")).to equal(false)
 
@@ -58,6 +58,14 @@ describe 'Pruebas sobre partial blocks'  do
 
   it 'un helloBlock al que le paso world!, dice Hello world!' do
     expect(helloBlock.call('world!')).to eq('Hello world!')
+  end
+
+  it 'un bloque que no espera argumentos matchea cuando no se le pasa ninguno' do
+    pi = PartialBlock.new([]) do 3.14
+    end
+
+    expect(pi.matches()).to be_truthy
+    expect(pi.matches("algo")).to be_falsey
   end
 
   it 'un bloque no recibe argumentos y anda correctamente' do

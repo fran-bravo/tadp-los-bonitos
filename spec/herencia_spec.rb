@@ -67,7 +67,7 @@ describe 'pruebas sobre herencia de multimétodos' do
       tanque = Tanque.new
 
       expect(tanque.ataca_a(mambru)).to eq("splat")
-      expect{tanque.ataca_a(radarin)}.to raise_error(NoMethodError)
+      expect{tanque.ataca_a(radarin)}.to raise_error(NoMatchingMultimethodError)
     end
 
     it 'Una definición parcial en una subclase no interfiere con otras subclases' do
@@ -79,7 +79,7 @@ describe 'pruebas sobre herencia de multimétodos' do
       mambru = Soldado.new
 
       expect(tanque_raro.ataca_a(mambru)).to eq("splat")
-      expect{tanque_raro.ataca_a(radarin)}.to raise_error(NoMethodError)
+      expect{tanque_raro.ataca_a(radarin)}.to raise_error(NoMatchingMultimethodError)
 
     end
 

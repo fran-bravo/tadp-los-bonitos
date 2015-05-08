@@ -147,13 +147,9 @@ describe 'Tests sobre multimethods' do
 
   end
 
-
-
-
-
   it 'Se invoca un multimetodo' do
     expect(A.new.concat('hello', " world!")). to eq("hello world!")
-    expect(A.new.concat('hello', 3)). to eq("hellohellohello") #Devuelve esto porque el método se está redefiniendo en un test anterior :/
+    expect(A.new.concat('hello', 3)). to eq("hellohellohello")
     expect(A.new.concat(['hello', ' world', '!'])). to eq("hello world!")
 
   end
@@ -207,6 +203,31 @@ describe 'Tests sobre multimethods' do
 
     expect(dario.agregar_titulo).to eq("Ing. Dario") #si el test da verde me recibo?
 
+  end
+
+  it 'cuando hago un def de un método ya definido como multimethod, lo pisa y usa la nueva definición' do
+    class B < A
+      def concat()
+        "este es un método normal!"
+      end
+    end
+
+    expect(B.new.concat()).to eq("este es un método normal!")
+  end
+
+  it 'cuando defino un multimétodo con el mismo nombre que un método normal, lo pisa' do
+    class Tanque
+      partial_def :pisar, [] do
+        "splat parcial"
+      end
+    end
+
+    expect(Tanque.new.pisar()).to eq("splat parcial")
+    expect{Tanque.new.pisar("alguien")}.to raise_error(NoMatchingMultimethodError)
+  end
+
+  it 'cuando se llama a un multimethod con una firma inexistente, se lanza un error' do
+    expect{A.new.concat('hello', 'world', '!')}.to raise_error(NoMatchingMultimethodError)
   end
 
   end

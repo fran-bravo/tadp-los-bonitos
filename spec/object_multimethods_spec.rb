@@ -18,7 +18,6 @@ describe 'Tests sobre multimetodos definidos en objetos' do
     "Hooooooonk!"
   end
 
-
   it 'Un objeto entiende partial_def' do
     a = A.new
 
@@ -33,7 +32,6 @@ describe 'Tests sobre multimetodos definidos en objetos' do
     expect(A.new.respond_to?(:gritar)).to eq(false)
   end
 
-
   it 'Se define un partial_def en un objeto y no funciona para otro objeto' do
     a = A.new
     a.partial_def(:gritar, [String]) do |grito| grito + "!" end
@@ -45,11 +43,10 @@ describe 'Tests sobre multimetodos definidos en objetos' do
   it 'Funciona respond_to? cuando se agrega un multimetodo solo a una instancia' do
     nueva_a = A.new
 
-    nueva_a.partial_def :multiplicar, [Integer, Integer] do |num1, num2| num1*num2 end #De momento no está implementado
+    nueva_a.partial_def :multiplicar, [Integer, Integer] do |num1, num2| num1*num2 end
     expect(nueva_a.respond_to?(:multiplicar, false, [Integer, Integer])).to eq(true)
   end
 
- # begin
     it 'Funciona un multimétodo agregado sólo a una instancia' do
       otra_a = A.new
 
@@ -57,7 +54,6 @@ describe 'Tests sobre multimetodos definidos en objetos' do
       expect(otra_a.hablar("ola ke ase")). to eq("ola ke ase")
 
     end
-#end
 
  it 'responds_to? funciona cuando agrego un mixin directamente a un objeto' do
    module Coso
@@ -76,8 +72,6 @@ describe 'Tests sobre multimetodos definidos en objetos' do
    expect(a.respond_to?(:hacer_cosa, false)).to eq(true)
    expect(a.respond_to?(:hacer_cosa, false, [Integer])).to eq(true)
  end
-
-#para este test de acá arriba habría que esperar a implementar herencia
 
   it 'un objeto ejecuta bien los multimethods que le defino a nivel objeto' do
     expect(tanque_modificado.tocar_bocina_a(Soldado.new("pepe"))).to eq("Honk Honk! pepe") # "Honk Honk! pepe"

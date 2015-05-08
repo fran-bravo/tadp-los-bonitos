@@ -213,6 +213,9 @@ end
 #************************************Ejecucion de un multimethod*****************************************
 #********************************************************************************************************
 
+class NoMatchingMultimethodError < StandardError
+end
+
 class Multimethod
 
   def elegir_multimethod_apropiado(*parametros)
@@ -224,6 +227,9 @@ class Multimethod
       distancia_parametros(part_block.types, parametros)
     end
 
+    if bloque.nil?
+      raise(NoMatchingMultimethodError, "No se encuentra un multimétodo con esa firma.")
+    end
     return bloque
 
   end
